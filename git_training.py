@@ -37,7 +37,13 @@ def L2_sort(L):
     """ 第二位任務：
         將 L2 進行升序排序，排序演算法不限，唯禁止使用內建或第三方函式庫的 sort
     """
-
+    n = len(L)
+    for i in range(n - 1):
+        for j in range(n - i - 1):
+            if L[j] > L[j + 1]:
+                tmp = L[j]
+                L[j] = L[j + 1]
+                L[j + 1] = tmp
     return L
 
 
