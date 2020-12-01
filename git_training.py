@@ -61,6 +61,18 @@ def list_processing(L1, L2):
         3. 取每個 sha256(x) 的最後 9-bit 轉成數字 y (範圍是 0~511) (請將 hash 的結果轉為 binary 再取最後 9-bit)
         4. 將 S 內的第 y 個 bit 設為 1 (每個 y 都要做喔)
     """
+    #y : res
+    S = ''.zfill(512)
+    sha256 = hashlib.sha256()
+    for val in list(set(L1).intersection(set(L2))):
+        sha256.update(str(val).encode('utf-8'))
+        res = sha256.hexdigest()
+        res = res[len(res) - 3:len(res)]
+        res = "{0:08b}".format(int(res, 16)).zfill(12)
+        res = res[3:12]
+        res = int(res, 2)
+        S = S[0:res] + '1' + S[res + 1 : len(S)]
+    return S
 
 
 def binary_tree(L):
